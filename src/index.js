@@ -1,11 +1,13 @@
-import _ from "lodash";
-import "./style.css";
-// import Picture from "./zuozhu.jpg";
+// index.js
+// 需 npm i vue --save
 import Vue from "vue";
+import App from "./App.vue";
+import ElementUI from "element-ui";
+import "./style.css";
 
-var app = new Vue({
+Vue.use(ElementUI);
+
+new Vue({
   el: "#app",
-  data: {
-    message: "Hello Vue!",
-  },
+  render: (h) => h(App),
 });
