@@ -1,34 +1,26 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-    <el-input v-model="msg" placeholder="请输入内容"></el-input>
+  <div>
+    <mt-header class="header" title="食堂">
+      <router-link to="/" slot="left">
+        <mt-button icon="back">返回</mt-button>
+      </router-link>
+      <mt-button icon="more" slot="right"></mt-button>
+    </mt-header>
   </div>
 </template>
 
 <script>
 export default {
-  name: "app",
+  name: "homePage",
   data() {
-    return {
-      msg: "Welcome to Your Vue.js",
-    };
+    return {};
   },
   created() {
-    this.fetchData();
+    console.error("这里输出：");
   },
-  methods: {
-    fetchData() {
-      this.msg = "这个是home页面";
-    },
-  },
+  methods: {},
 };
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-}
-h1 {
-  color: #cc3333;
-}
 </style>
