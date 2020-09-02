@@ -7,7 +7,13 @@
   "DAIMIAN_006": "login",
   "DAIMIAN_007": "Incorrect user name or password",
   "DAIMIAN_008": "Food",
-  "DAIMIAN_009": "Collect",
+  "DAIMIAN_009": "Starred",
   "DAIMIAN_010": "Order",
-  "DAIMIAN_011": "Me"
+  "DAIMIAN_011": "Profile",
+  "DAIMIAN_012": "Back",
+  "DAIMIAN_013": "Canteen",
+  "DAIMIAN_014": "Qingshuihe",
+  "DAIMIAN_015": "Shahe",
+  "DAIMIAN_016": "Search for food or store names",
+  "DAIMIAN_017": "Cancel"
 }

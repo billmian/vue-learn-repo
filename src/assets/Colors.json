@@ -1,0 +1,38 @@
+{
+  "white": "#FFFFFF",
+  "black": "#000000",
+
+  "red2": "#ffccc7",
+  "red4": "#ff7875",
+  "red6": "#f5222d",
+  "red8": "#a8071a",
+  "red10": "#5c0011",
+
+  "gold2": "#fff1b8",
+  "gold4": "#ffd666",
+  "gold6": "#faad14",
+  "gold8": "#ad6800",
+  "gold10": "#613400",
+
+  "lime2": "#f4ffb8",
+  "lime4": "#d3f261",
+  "lime6": "#a0d911",
+  "lime8": "#5b8c00",
+  "lime10": "#254000",
+
+  "cyan2": "#b5f5ec",
+  "cyan4": "#5cdbd3",
+  "cyan6": "#13c2c2",
+  "cyan8": "#006d75",
+  "cyan10": "#002329",
+
+  "blue2": "#bae7ff",
+  "blue4": "#69c0ff",
+  "blue6": "#1890ff",
+  "blue8": "#0050b3",
+  "blue10": "#002766",
+
+  "gray1": "#757575",
+  "MTyellow": "#F7C443",
+  "MTyellow2": "#F9D147"
+}

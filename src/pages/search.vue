@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <router-view></router-view>
-    <tabbar></tabbar>
-  </div>
+  <search></search>
 </template>
 
 <script>
-import { tabbar, titleBar, search, fakeSearchBar } from "@/components";
+import { tabbar, search } from "@/components";
 
 export default {
   name: "homePage",
   components: {
-    tabbar,
-    titleBar,
-    fakeSearchBar,
+    // tabbar,
+    search,
   },
   data() {
     return {};

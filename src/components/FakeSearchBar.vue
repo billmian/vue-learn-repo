@@ -1,0 +1,146 @@
+<template>
+  <div class="fake-title-bar">
+    <div class="fake-title-bar-container">
+      <div class="campus" :class="{towardTop:showSelect, towardBottom:!showSelect}">
+        <div class="selected-container" @click="openSelect">{{campus[chooseCampus]}}</div>
+        <div class="select-campus" v-if="showSelect">
+          <div @click="clickQingshuihe">{{$t('DAIMIAN_014')}}</div>
+          <div @click="clickShahe">{{$t('DAIMIAN_015')}}</div>
+        </div>
+      </div>
+      <div class="fake-search-container" @click="clickSearch">
+        <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
+        <div class="search-food">搜索美食</div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import store from "@/store";
+import { myIcon } from "@/components";
+
+export default {
+  data() {
+    return {
+      chooseCampus: 1,
+      cacheCampus: 1,
+      showSelect: false,
+    };
+  },
+  components: {
+    myIcon,
+  },
+  computed: {
+    //14是清水河， 15是沙河
+    campus() {
+      return ["", this.$t("DAIMIAN_014"), this.$t("DAIMIAN_015")];
+    },
+  },
+  methods: {
+    openSelect() {
+      this.showSelect = !this.showSelect;
+      if (this.chooseCampus === 0) {
+        this.chooseCampus = this.cacheCampus;
+        this.showSelect = false;
+      } else {
+        this.chooseCampus = 0;
+      }
+    },
+    clickQingshuihe() {
+      store.commit("SET_CAMPUS", "Qingshuihe");
+      this.chooseCampus = 1;
+      this.cacheCampus = 1;
+      this.showSelect = false;
+    },
+    clickShahe() {
+      store.commit("SET_CAMPUS", "Shahe");
+      this.chooseCampus = 2;
+      this.cacheCampus = 2;
+      this.showSelect = false;
+    },
+    clickSearch() {
+      this.$router.push({
+        path: "/search",
+      });
+    },
+  },
+};
+</script>
+<style lang="less" scoped>
+.fake-title-bar {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  padding: 0 15px;
+  box-sizing: border-box;
+  background-color: @MTyellow2;
+  .fake-title-bar-container {
+    height: 30px;
+    position: relative;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    .fake-search-container {
+      height: 30px;
+      flex-grow: 1;
+      margin-left: 10px;
+      background-color: @white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding-left: 6px;
+      .search-food {
+        color: @gray1;
+        font-size: 12px;
+        padding-left: 5px;
+      }
+    }
+  }
+}
+
+.campus {
+  padding-right: 6px;
+  position: relative;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 30px;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, "宋体";
+  .selected-container {
+    height: 30px;
+    width: 54px;
+  }
+  &.towardTop {
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 12px;
+      right: 4px;
+      border-top: 2px solid #000;
+      border-left: 2px solid #000;
+      transform: rotate(45deg);
+      width: 6px;
+      height: 6px;
+    }
+  }
+  &.towardBottom {
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 8px;
+      right: 4px;
+      border-bottom: 2px solid #000;
+      border-right: 2px solid #000;
+      transform: rotate(45deg);
+      width: 6px;
+      height: 6px;
+    }
+  }
+  .select-campus {
+    line-height: 20px;
+  }
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="icon-container">
-      <languageField></languageField>
+      <language></language>
       <img src="../assets/uestc.jpg" class="uestc-icon" />
     </div>
     <div class="login-title">
@@ -23,14 +23,14 @@
 
 <script>
 import { setLocale } from "@/languages";
-import languageField from "@/components/language";
+import { language } from "@/components";
 import { Toast } from "mint-ui";
 import http from "@/http";
 
 export default {
   name: "loginPage",
   components: {
-    languageField,
+    language,
   },
   data() {
     return {
