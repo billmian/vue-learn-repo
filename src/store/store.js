@@ -6,7 +6,10 @@ const context = require.context("./mutations", false, /\.js$/);
 const mutations = requireFiles(context);
 
 let storeObj = {
-  state: {},
+  state: {
+    campus: "Shahe",
+    language: "cn",
+  },
   mutations,
 };
 

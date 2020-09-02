@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require("vue-loader/lib/plugin");
+const Colors = require("../src/assets/Colors.json");
 
 module.exports = {
   entry: {
@@ -83,6 +84,11 @@ module.exports = {
           },
           {
             loader: "less-loader", // compiles Less to CSS
+            options: {
+              lessOptions: {
+                modifyVars: Colors,
+              },
+            },
           },
         ],
       },
