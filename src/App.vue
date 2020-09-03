@@ -16,7 +16,9 @@ export default {
   components: {
     home,
   },
-  created() {},
+  created() {
+    console.error("app.vue已经created");
+  },
   mounted() {},
   methods: {},
 };

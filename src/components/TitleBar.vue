@@ -31,6 +31,9 @@ export default {
 </script>
 <style lang='less' scoped>
 .mint-header {
+  height: 50px;
+  font-size: 16px;
   background-color: @MTyellow2;
+  color: @black;
 }
 </style>

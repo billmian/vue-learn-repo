@@ -19,7 +19,7 @@
         </div>
         {{ $t("DAIMIAN_010") }}
       </mt-tab-item>
-      <mt-tab-item id="me">
+      <mt-tab-item id="profile">
         <div class="icon-container">
           <my-icon imgClassName="icon-wode" size="24"></my-icon>
         </div>
@@ -31,11 +31,13 @@
 </template>
 <script>
 import { myIcon } from "@/components";
+import store from "@/store";
 
 export default {
   data() {
     return {
-      selected: "food",
+      lastSelected: store.state.selected || "food",
+      selected: store.state.selected || "food",
     };
   },
   components: {
@@ -55,7 +57,15 @@ export default {
       return this.$t("DAIMIAN_011");
     },
   },
-  updated() {},
+  updated() {
+    if (this.selected !== this.lastSelected) {
+      this.$router.push({
+        path: `/home/${this.selected}`,
+      });
+      store.commit("SELECTED_PAGE", this.selected);
+      this.lastSelected = this.selected;
+    }
+  },
   created() {},
   methods: {},
 };

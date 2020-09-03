@@ -99,7 +99,6 @@ export default {
       }
     }
     .search-cancel {
-      width: 40px;
       height: 30px;
       padding-left: 10px;
       line-height: 30px;

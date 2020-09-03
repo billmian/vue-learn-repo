@@ -15,5 +15,9 @@ let storeObj = {
 
 Vue.use(Vuex);
 const store = new Vuex.Store(storeObj);
+localStorage.getItem("userMsg") &&
+  store.replaceState(
+    Object.assign(store.state, JSON.parse(localStorage.getItem("userMsg")))
+  );
 
 export default store;

@@ -1,18 +1,21 @@
 <template>
-  <div class="fake-title-bar">
-    <div class="fake-title-bar-container">
-      <div class="campus" :class="{towardTop:showSelect, towardBottom:!showSelect}">
-        <div class="selected-container" @click="openSelect">{{campus[chooseCampus]}}</div>
-        <div class="select-campus" v-if="showSelect">
-          <div @click="clickQingshuihe">{{$t('DAIMIAN_014')}}</div>
-          <div @click="clickShahe">{{$t('DAIMIAN_015')}}</div>
+  <div>
+    <div class="fake-title-bar">
+      <div class="fake-title-bar-container">
+        <div class="campus" :class="{towardTop:showSelect, towardBottom:!showSelect}">
+          <div class="selected-container" @click="openSelect">{{campus[chooseCampus]}}</div>
+          <div class="select-campus" v-if="showSelect">
+            <div @click="clickQingshuihe">{{$t('DAIMIAN_014')}}</div>
+            <div @click="clickShahe">{{$t('DAIMIAN_015')}}</div>
+          </div>
+        </div>
+        <div class="fake-search-container" @click="clickSearch">
+          <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
+          <div class="search-food">搜索美食</div>
         </div>
       </div>
-      <div class="fake-search-container" @click="clickSearch">
-        <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
-        <div class="search-food">搜索美食</div>
-      </div>
     </div>
+    <div class="fake-title-bar-placeholder"></div>
   </div>
 </template>
 <script>
@@ -142,5 +145,9 @@ export default {
   .select-campus {
     line-height: 20px;
   }
+}
+.fake-title-bar-placeholder {
+  height: 50px;
+  width: 100%;
 }
 </style>
