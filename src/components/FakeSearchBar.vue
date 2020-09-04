@@ -2,13 +2,6 @@
   <div>
     <div class="fake-title-bar">
       <div class="fake-title-bar-container">
-        <div class="campus" :class="{towardTop:showSelect, towardBottom:!showSelect}">
-          <div class="selected-container" @click="openSelect">{{campus[chooseCampus]}}</div>
-          <div class="select-campus" v-if="showSelect">
-            <div @click="clickQingshuihe">{{$t('DAIMIAN_014')}}</div>
-            <div @click="clickShahe">{{$t('DAIMIAN_015')}}</div>
-          </div>
-        </div>
         <div class="fake-search-container" @click="clickSearch">
           <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
           <div class="search-food">搜索美食</div>
@@ -24,43 +17,13 @@ import { myIcon } from "@/components";
 
 export default {
   data() {
-    return {
-      chooseCampus: 1,
-      cacheCampus: 1,
-      showSelect: false,
-    };
+    return {};
   },
   components: {
     myIcon,
   },
-  computed: {
-    //14是清水河， 15是沙河
-    campus() {
-      return ["", this.$t("DAIMIAN_014"), this.$t("DAIMIAN_015")];
-    },
-  },
+  computed: {},
   methods: {
-    openSelect() {
-      this.showSelect = !this.showSelect;
-      if (this.chooseCampus === 0) {
-        this.chooseCampus = this.cacheCampus;
-        this.showSelect = false;
-      } else {
-        this.chooseCampus = 0;
-      }
-    },
-    clickQingshuihe() {
-      store.commit("SET_CAMPUS", "Qingshuihe");
-      this.chooseCampus = 1;
-      this.cacheCampus = 1;
-      this.showSelect = false;
-    },
-    clickShahe() {
-      store.commit("SET_CAMPUS", "Shahe");
-      this.chooseCampus = 2;
-      this.cacheCampus = 2;
-      this.showSelect = false;
-    },
     clickSearch() {
       this.$router.push({
         path: "/search",

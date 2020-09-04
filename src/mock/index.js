@@ -1,31 +1,56 @@
 import Mock from "mockjs";
+import PictureList from "@/assets/picture";
+
 const Random = Mock.Random;
 
 let data = Mock.mock("/mock/foods", getFood);
 function getFood(options) {
   let page = JSON.parse(options.body).page;
+  let campus = JSON.parse(options.body).campus;
+  let canteen = JSON.parse(options.body).canteen;
+
   if (!page) {
     return [];
   }
   let foodList = [];
   let obj = {};
+  //确定饭店的地址
+  const position1 = [
+    "清水河校区学子餐厅",
+    "清水河校区清真食堂",
+    "清水河校区桃园餐厅",
+  ];
+  const position2 = [
+    "沙河校区风华餐厅",
+    "沙河校区阳光餐厅",
+    "沙河校区桂园餐厅",
+  ];
+  let position;
+
   for (let i = (page - 1) * 10; i < page * 10; i++) {
-    let positionIndex = Random.natural(0, 6);
-    const position = [
-      "沙河校区风华餐厅",
-      "沙河校区阳光餐厅",
-      "沙河校区桂园餐厅",
-      "沙河校区桂园餐厅二楼",
-      "清水河校区清真食堂",
-      "清水河校区学子餐厅",
-      "清水河校区桃园餐厅",
-    ];
+    if (campus === 0 && canteen === 0) {
+      position = position1.concat(position2)[Random.natural(0, 5)];
+    } else if (campus === 0 && canteen !== 0) {
+      position = position1.concat(position2)[canteen - 1];
+    } else if (campus !== 0 && canteen === 0) {
+      if (campus === 1) {
+        position = position1[Random.natural(0, 2)];
+      } else {
+        position = position2[Random.natural(0, 2)];
+      }
+    } else {
+      if (campus === 1) {
+        position = position1[canteen - 1];
+      } else {
+        position = position2[canteen - 1];
+      }
+    }
     const enablePack = Random.boolean();
     obj = {
       id: i,
-      picture: Random.dataImage("80x80"),
+      picture: PictureList[Random.natural(0, 9)],
       restaurantName: Random.ctitle(2, 5) + "饭店",
-      position: position[positionIndex],
+      position,
       price: "¥" + Random.integer(10, 30) + "/人",
       enablePack,
     };

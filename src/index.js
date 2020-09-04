@@ -9,7 +9,16 @@ import "mint-ui/lib/style.css";
 import "./style.css";
 import "./mock";
 
-import { login, home, search, food, profile, starred, order } from "@/pages";
+import {
+  login,
+  home,
+  search,
+  food,
+  profile,
+  starred,
+  order,
+  details,
+} from "@/pages";
 
 import language, { getLocale } from "@/languages";
 import store from "./store";
@@ -43,6 +52,11 @@ const router = new Router({
     {
       path: "/login",
       component: login,
+    },
+    {
+      name: "details",
+      path: "/details/:id",
+      component: details,
     },
     {
       path: "/home",
