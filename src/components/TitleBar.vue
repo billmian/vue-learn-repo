@@ -1,9 +1,10 @@
 <template>
   <mt-header class="header" :title="title">
-    <router-link to="/" slot="left" v-if="showBack">
-      <mt-button icon="back">{{ $t("DAIMIAN_012") }}</mt-button>
+    <router-link to slot="left" v-if="showBack">
+      <mt-button @click="clickReture" icon="back">{{ $t("DAIMIAN_012") }}</mt-button>
     </router-link>
     <!-- <mt-button icon="more" slot="right"></mt-button> -->
+    <slot></slot>
   </mt-header>
 </template>
 <script>
@@ -26,7 +27,11 @@ export default {
       return this.$t("DAIMIAN_012");
     },
   },
-  methods: {},
+  methods: {
+    clickReture() {
+      this.$router.go(-1);
+    },
+  },
 };
 </script>
 <style lang='less' scoped>

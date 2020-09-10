@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <title-bar :showBack="true" title="详情页"></title-bar>
+    <title-bar :showBack="true" :title="details"><div>456</div></title-bar>
     <div>123</div>
   </div>
 </template>
@@ -9,6 +9,11 @@ import { titleBar } from "@/components";
 export default {
   data() {
     return {};
+  },
+  computed: {
+    details() {
+      return this.$t("DAIMIAN_032");
+    },
   },
   components: {
     titleBar,
