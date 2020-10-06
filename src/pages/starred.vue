@@ -1,6 +1,6 @@
 <template>
   <div class="starred-page">
-    <title-bar :title="starredTitle"></title-bar>
+    <title-bar :showBack="true" :title="starredTitle"></title-bar>
     <div class="starred-container">
       <div class="starred-block">
         <div class="block-left">

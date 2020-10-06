@@ -4,12 +4,22 @@
     <!-- 校区  食堂  -->
     <div class="condition-bar" :class="fixConditionBar ? 'fixed' : ''">
       <div class="select-campus" @click="clickOpenCampus">
-        <div :class="openCampus ? 'selectedCampus' : ''">{{allCampus}}</div>
-        <myIcon class="arrow-icon" :imgClassName="arrowTarget1" size="14"></myIcon>
+        <div :class="openCampus ? 'selectedCampus' : ''">{{ allCampus }}</div>
+        <myIcon
+          class="arrow-icon"
+          :imgClassName="arrowTarget1"
+          size="14"
+        ></myIcon>
       </div>
       <div class="select-canteen" @click="clickOpenCanteen">
-        <div :class="openCanteen ? 'selectedCanteen' : ''">{{allCanteen}}</div>
-        <myIcon class="arrow-icon" :imgClassName="arrowTarget2" size="14"></myIcon>
+        <div :class="openCanteen ? 'selectedCanteen' : ''">
+          {{ allCanteen }}
+        </div>
+        <myIcon
+          class="arrow-icon"
+          :imgClassName="arrowTarget2"
+          size="14"
+        ></myIcon>
       </div>
     </div>
     <div class="condition-bar-placeholder" v-if="fixConditionBar"></div>
@@ -24,21 +34,25 @@
         <div class="popup-left">
           <div
             class="select-item"
-            v-for="(item,index) in campus"
-            :class="index===selectedCampus ? 'selectedCampus' : ''"
+            v-for="(item, index) in campus"
+            :class="index === selectedCampus ? 'selectedCampus' : ''"
             :key="item"
             @click="clickCampus(index)"
-          >{{item}}</div>
+          >
+            {{ item }}
+          </div>
         </div>
         <div class="popup-right">
           <!-- 生成餐厅列表 -->
           <div
             class="select-item"
-            v-for="(item,index) in canteen"
-            :class="index===selectedCanteen ? 'selectedCanteen' : ''"
+            v-for="(item, index) in canteen"
+            :class="index === selectedCanteen ? 'selectedCanteen' : ''"
             :key="item"
             @click="clickCanteen(index)"
-          >{{item}}</div>
+          >
+            {{ item }}
+          </div>
         </div>
       </div>
     </div>
@@ -52,7 +66,12 @@
         "DAIMIAN_015": "沙河",
     }-->
     <div class="food-container">
-      <div class="food-blocks" v-for="item in foodList" :key="item.id" @click="goToFoodPage">
+      <div
+        class="food-blocks"
+        v-for="item in foodList"
+        :key="item.id"
+        @click="goToFoodPage(item)"
+      >
         <div class="food-item">
           <div class="item-left">
             <div class="food-picture">
@@ -60,11 +79,13 @@
             </div>
           </div>
           <div class="item-right">
-            <div class="restaurantName">{{item.restaurantName}}</div>
+            <div class="restaurantName">{{ item.restaurantName }}</div>
             <div class="restaurantInfo">
-              <div class="price">{{item.price}}</div>
-              <div class="position">{{item.position}}</div>
-              <div class="enablePack">{{item.enablePack ? '支持打包':'只能堂食'}}</div>
+              <div class="price">{{ item.price }}</div>
+              <div class="position">{{ item.position }}</div>
+              <div class="enablePack">
+                {{ item.enablePack ? "支持打包" : "只能堂食" }}
+              </div>
             </div>
           </div>
         </div>
@@ -89,6 +110,9 @@ export default {
       //0表示所有，1表示清水河，2表示沙河
       selectedCampus: 0,
       selectedCanteen: 0,
+      //缓存上一次选中的 campus 和 canteen。用来比较每次选择校区和餐厅时，如果没更改，不更新列表
+      cacheCampus: 0,
+      cacheCanteen: 0,
     };
   },
   computed: {
@@ -161,15 +185,14 @@ export default {
     addEventListener("scroll", this.handleScroll()); //监听函数
   },
   methods: {
-    goToFoodPage() {
+    goToFoodPage(item) {
       this.$router.push({
         name: "details",
         params: {
-          id: 123,
+          item,
         },
       });
     },
-    //这个函数用于点击幕布时关上 condition，而且在点击校区和食堂的时候 阻止冒泡
     clickItem(e) {
       if (e) {
         e.stopPropagation ? e.stopPropagation() : (e.cancelBubble = true);
@@ -177,19 +200,28 @@ export default {
     },
     closeCondition() {
       //这里设置reset为true，表示不再将返回的列表拼接原本的列表，而是直接创建新的
-      this.getRestaurantList(
-        this.page,
-        this.selectedCampus,
-        this.selectedCanteen,
-        true
-      );
+      if (
+        this.cacheCampus !== this.selectedCampus ||
+        this.cacheCanteen !== this.selectedCanteen
+      ) {
+        this.getRestaurantList(
+          this.page,
+          this.selectedCampus,
+          this.selectedCanteen,
+          true
+        );
+        this.cacheCampus = this.selectedCampus;
+        this.cacheCanteen = this.selectedCanteen;
+      }
       this.openCampus = false;
       this.openCanteen = false;
     },
     clickMask() {
+      //点击幕布不更新列表内容
       this.closeCondition();
     },
     clickCampus(index) {
+      console.log("这里点击了campus：", index);
       if (index !== this.selectedCampus) {
         this.selectedCampus = index;
         this.selectedCanteen = 0;

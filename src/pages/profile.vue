@@ -3,28 +3,46 @@
     <title-bar :title="personalInfo"></title-bar>
     <div class="info-block">
       <div class="item-block">
-        <div class="key">{{$t('DAIMIAN_018')}}：</div>
-        <div class="value">{{name}}</div>
+        <div class="key">{{ $t("DAIMIAN_018") }}：</div>
+        <div class="value">{{ name }}</div>
       </div>
       <div class="item-block">
-        <div class="key">{{$t('DAIMIAN_019')}}：</div>
-        <div class="value">{{phone}}</div>
+        <div class="key">{{ $t("DAIMIAN_019") }}：</div>
+        <div class="value">{{ phone }}</div>
       </div>
       <div class="item-block">
-        <div class="key">{{$t('DAIMIAN_020')}}：</div>
-        <div class="value">{{studentId}}</div>
+        <div class="key">{{ $t("DAIMIAN_020") }}：</div>
+        <div class="value">{{ studentId }}</div>
       </div>
       <div class="item-block">
-        <div class="key">{{$t('DAIMIAN_021')}}：</div>
-        <div class="value">{{identity}}</div>
+        <div class="key">{{ $t("DAIMIAN_021") }}：</div>
+        <div class="value">{{ identity }}</div>
+      </div>
+      <div class="item-block">
+        <div class="key">{{ $t("DAIMIAN_035") }}：</div>
+        <div class="value withIcon">
+          <div>
+            {{ languageName }}
+          </div>
+          <div class="arrow-icon">
+            <my-icon
+              imgClassName="icon-jiantou-copy-copy-copy"
+              size="18"
+            ></my-icon>
+          </div>
+        </div>
+      </div>
+      <div class="sign-out-container" @click="clickSignOut">
+        <div class="sign-out-button">{{ $t("DAIMIAN_034") }}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
 //姓名 电话  学号 身份
-import { titleBar } from "@/components";
+import { titleBar, myIcon } from "@/components";
 import store from "@/store";
+import { getLocale, LANGUAGENAME } from "@/languages";
 
 const EMPTY_CHAR = "--";
 export default {
@@ -37,12 +55,17 @@ export default {
     };
   },
   created() {},
+  mounted() {},
   components: {
     titleBar,
+    myIcon,
   },
   computed: {
     personalInfo() {
       return this.$t("DAIMIAN_022");
+    },
+    languageName() {
+      return LANGUAGENAME[getLocale()];
     },
     lists() {
       return {
@@ -52,7 +75,15 @@ export default {
       };
     },
   },
-  methods: {},
+  methods: {
+    clickSignOut() {
+      this.$router.push({
+        path: "/login",
+      });
+      localStorage.removeItem("orderInfo");
+      localStorage.removeItem("userMsg");
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -77,5 +108,24 @@ export default {
       }
     }
   }
+}
+.sign-out-container {
+  margin: 14px 10px;
+  .sign-out-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: @white;
+    background-color: @red4;
+    height: 45px;
+  }
+}
+.withIcon {
+  display: flex;
+}
+.arrow-icon {
+  margin-left: 4px;
+  color: gray;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <mt-header class="header" :title="title">
     <router-link to slot="left" v-if="showBack">
-      <mt-button @click="clickReture" icon="back">{{ $t("DAIMIAN_012") }}</mt-button>
+      <mt-button @click="clickReture" icon="back">{{
+        $t("DAIMIAN_012")
+      }}</mt-button>
     </router-link>
     <!-- <mt-button icon="more" slot="right"></mt-button> -->
     <slot></slot>

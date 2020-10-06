@@ -7,7 +7,7 @@
 
 <script>
 import { tabbar, titleBar, search, fakeSearchBar } from "@/components";
-
+import store from "@/store";
 export default {
   name: "homePage",
   components: {
@@ -17,6 +17,13 @@ export default {
   },
   data() {
     return {};
+  },
+  beforeRouteUpdate(to, from, next) {
+    if (/\/home\/[^\/]+$/.test(to.path)) {
+      let selectedPage = to.path.match(/\/home\/([^\/]+)$/)[1];
+      store.commit("SELECTED_PAGE", selectedPage);
+    }
+    next();
   },
   created() {},
   methods: {},
