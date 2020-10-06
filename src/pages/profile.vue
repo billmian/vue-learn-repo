@@ -18,7 +18,7 @@
         <div class="key">{{ $t("DAIMIAN_021") }}：</div>
         <div class="value">{{ identity }}</div>
       </div>
-      <div class="item-block">
+      <div class="item-block" @click="clickLanguage">
         <div class="key">{{ $t("DAIMIAN_035") }}：</div>
         <div class="value withIcon">
           <div>
@@ -26,12 +26,18 @@
           </div>
           <div class="arrow-icon">
             <my-icon
-              imgClassName="icon-jiantou-copy-copy-copy"
+              :imgClassName="
+                showOptions
+                  ? 'icon-jiantou-copy-copy-copy'
+                  : 'icon-jiantou-copy-copy'
+              "
               size="18"
             ></my-icon>
           </div>
         </div>
       </div>
+      <mt-radio v-if="showOptions" v-model="optionValue" :options="options">
+      </mt-radio>
       <div class="sign-out-container" @click="clickSignOut">
         <div class="sign-out-button">{{ $t("DAIMIAN_034") }}</div>
       </div>
@@ -42,7 +48,8 @@
 //姓名 电话  学号 身份
 import { titleBar, myIcon } from "@/components";
 import store from "@/store";
-import { getLocale, LANGUAGENAME } from "@/languages";
+import { getLocale, LANGUAGENAME, setLocale } from "@/languages";
+import { Radio } from "mint-ui";
 
 const EMPTY_CHAR = "--";
 export default {
@@ -52,6 +59,18 @@ export default {
       phone: store.state.phone || EMPTY_CHAR,
       studentId: store.state.studentId || EMPTY_CHAR,
       identity: store.state.identity || EMPTY_CHAR,
+      optionValue: store.state.language || "cn",
+      showOptions: false,
+      options: [
+        {
+          label: "简体中文",
+          value: "cn",
+        },
+        {
+          label: "English",
+          value: "en",
+        },
+      ],
     };
   },
   created() {},
@@ -75,6 +94,11 @@ export default {
       };
     },
   },
+  watch: {
+    optionValue(newValue) {
+      setLocale(this, newValue);
+    },
+  },
   methods: {
     clickSignOut() {
       this.$router.push({
@@ -83,10 +107,13 @@ export default {
       localStorage.removeItem("orderInfo");
       localStorage.removeItem("userMsg");
     },
+    clickLanguage() {
+      this.showOptions = !this.showOptions;
+    },
   },
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .profile-container {
   font-family: PingFangSC-Regular;
   min-height: calc(100vh - 55px);
@@ -127,5 +154,9 @@ export default {
 .arrow-icon {
   margin-left: 4px;
   color: gray;
+}
+.mint-radiolist-title {
+  margin: 0;
+  display: none;
 }
 </style>

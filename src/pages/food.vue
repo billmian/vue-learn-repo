@@ -184,6 +184,9 @@ export default {
   mounted() {
     addEventListener("scroll", this.handleScroll()); //监听函数
   },
+  beforeDestroy() {
+    removeEventListener("scroll", this.handleScroll()); //去除监听函数
+  },
   methods: {
     goToFoodPage(item) {
       this.$router.push({

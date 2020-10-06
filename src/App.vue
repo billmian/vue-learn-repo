@@ -17,15 +17,7 @@ export default {
     home,
   },
   created() {},
-  mounted() {
-    //这里监听浏览器刷新，刷新前将订单信息和star信息存入 localStorage
-    window.addEventListener("beforeunload", (e) => {
-      localStorage.setItem(
-        "orderInfo",
-        JSON.stringify(this.$store.state.order)
-      );
-    });
-  },
+  mounted() {},
   methods: {},
 };
 </script>

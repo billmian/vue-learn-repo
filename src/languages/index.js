@@ -18,7 +18,7 @@ function getLocale() {
 }
 //重置 language
 function setLocale(that, language) {
-  localStorage.setItem("language", language);
+  console.log("这里出发了setLocale", language);
   store.commit("MODIFY_LANGUAGE", language);
   that.$i18n.locale = language;
 }

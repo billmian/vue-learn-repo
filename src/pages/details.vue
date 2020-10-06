@@ -18,6 +18,7 @@
 <script>
 import { titleBar } from "@/components";
 import store from "@/store";
+import { Toast } from "mint-ui";
 
 export default {
   data() {
@@ -56,7 +57,13 @@ export default {
       let minute = date.getMinutes();
       let seconds = date.getSeconds();
       let orderTime = `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
+
       store.commit("ADD_ORDER", { ...this.itemInfo, orderTime });
+      Toast({
+        message: this.$i18n.tc("DAIMIAN_036"),
+        position: "middle",
+        duration: 2500,
+      });
     },
   },
 };

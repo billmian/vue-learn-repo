@@ -5,6 +5,7 @@ import Vuex from "vuex";
 const context = require.context("./mutations", false, /\.js$/);
 const mutations = requireFiles(context);
 
+//这里为了刷新页面时防止清空 vuex
 let storeObj = {
   state: {
     campus: "Shahe",

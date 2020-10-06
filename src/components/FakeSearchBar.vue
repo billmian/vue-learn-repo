@@ -4,7 +4,7 @@
       <div class="fake-title-bar-container">
         <div class="fake-search-container" @click="clickSearch">
           <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
-          <div class="search-food">搜索美食</div>
+          <div class="search-food">{{ $t("DAIMIAN_037") }}</div>
         </div>
       </div>
     </div>
