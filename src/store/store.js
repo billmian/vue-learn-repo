@@ -9,6 +9,8 @@ let storeObj = {
   state: {
     campus: "Shahe",
     language: "cn",
+    orderInfo: JSON.parse(localStorage.getItem("orderInfo")),
+    ...JSON.parse(localStorage.getItem("userMsg")),
   },
   mutations,
 };

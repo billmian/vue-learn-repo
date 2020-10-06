@@ -33,6 +33,8 @@
   "blue10": "#002766",
 
   "gray1": "#757575",
+  "MTBackgound": "#F4F4F4",
   "MTyellow": "#F7C443",
-  "MTyellow2": "#F9D147"
+  "MTyellow2": "#F9D147",
+  "MaskColor": "rgba(0, 0, 0, 0.7)"
 }

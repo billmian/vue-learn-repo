@@ -19,14 +19,14 @@
         </div>
         {{ $t("DAIMIAN_010") }}
       </mt-tab-item>
-      <mt-tab-item id="me">
+      <mt-tab-item id="profile">
         <div class="icon-container">
           <my-icon imgClassName="icon-wode" size="24"></my-icon>
         </div>
         {{ $t("DAIMIAN_011") }}
       </mt-tab-item>
     </mt-tabbar>
-    <div class="tabBar-placeholder"></div>
+    <div class="tabBar-placeholder">{{ selectedPage }}</div>
   </div>
 </template>
 <script>
@@ -35,27 +35,34 @@ import { myIcon } from "@/components";
 export default {
   data() {
     return {
-      selected: "food",
+      lastSelected: this.$store.state.selected || "food",
+      selected: this.$store.state.selected || "food",
     };
   },
   components: {
     myIcon,
   },
   computed: {
-    food() {
-      return this.$t("DAIMIAN_008");
-    },
-    collect() {
-      return this.$t("DAIMIAN_009");
-    },
-    order() {
-      return this.$t("DAIMIAN_010");
-    },
-    me() {
-      return this.$t("DAIMIAN_011");
+    selectedPage() {
+      return this.$store.state.selected;
     },
   },
-  updated() {},
+  watch: {
+    selectedPage(newValue) {
+      this.selected = newValue;
+      this.lastSelected = newValue;
+    },
+  },
+  updated() {
+    // 但是这样写只能监听到直接点击 tabBar，无法监听 返回
+    if (this.selected !== this.lastSelected) {
+      this.$router.push({
+        path: `/home/${this.selected}`,
+      });
+      this.$store.commit("SELECTED_PAGE", this.selected);
+      this.lastSelected = this.selected;
+    }
+  },
   created() {},
   methods: {},
 };

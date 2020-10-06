@@ -26,6 +26,7 @@ import { setLocale } from "@/languages";
 import { language } from "@/components";
 import { Toast } from "mint-ui";
 import http from "@/http";
+import store from "@/store";
 
 export default {
   name: "loginPage",
@@ -72,7 +73,8 @@ export default {
             //登录成功
             if (res.data.res === true) {
               //设置cookie，进行登录检测。后端检测token，如果不对则重定向到登录界面
-              let token = res.data.token;
+              let { name, photo, token } = res.data;
+              store.commit("CREATE_USERINFO", res.data);
               this.$cookies.set("token", token, "24h");
               this.$router.push({
                 path: "/home",

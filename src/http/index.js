@@ -11,8 +11,8 @@ let localhost = ""; //还没部署到服务器上，这里先不进行baseUrl封
 http.get = function(url, params) {
   return axios.get(url, params);
 };
-http.post = function(url) {
-  return axios.post(url);
+http.post = function(url, params) {
+  return axios.post(url, params);
 };
 
 export default http;

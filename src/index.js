@@ -9,9 +9,16 @@ import "mint-ui/lib/style.css";
 import "./style.css";
 import "./mock";
 
-import login from "@/pages/login";
-import home from "@/pages/home";
-import search from "@/pages/search";
+import {
+  login,
+  home,
+  search,
+  food,
+  profile,
+  starred,
+  order,
+  details,
+} from "@/pages";
 
 import language, { getLocale } from "@/languages";
 import store from "./store";
@@ -47,8 +54,35 @@ const router = new Router({
       component: login,
     },
     {
+      name: "details",
+      path: "/details/:item",
+      component: details,
+    },
+    {
       path: "/home",
       component: home,
+      children: [
+        // 当/home 匹配成功， food 会被默认选人
+        { path: "", component: food },
+        {
+          // 当 /home/food 匹配成功，
+          //  food 会被渲染在 home 的 <router-view> 中
+          path: "food",
+          component: food,
+        },
+        {
+          path: "profile",
+          component: profile,
+        },
+        {
+          path: "starred",
+          component: starred,
+        },
+        {
+          path: "order",
+          component: order,
+        },
+      ],
     },
     {
       path: "/",

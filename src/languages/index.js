@@ -6,7 +6,10 @@ const LANGUAGE = {
   cn: Chinese,
   en: English,
 };
-
+const LANGUAGENAME = {
+  cn: "简体中文",
+  en: "English",
+};
 //获取当前的 localStorage 里面的 language
 function getLocale() {
   let language =
@@ -21,4 +24,4 @@ function setLocale(that, language) {
 }
 
 export default LANGUAGE;
-export { getLocale, setLocale };
+export { getLocale, setLocale, LANGUAGENAME };
