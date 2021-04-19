@@ -6,18 +6,23 @@
         <img :src="itemInfo.picture" class="picture" />
       </div>
       <div class="details-price-button">
+        <div class="details-name">
+          <div class="name-content">{{ name }}</div>
+        </div>
         <div class="details-price">
           <div class="price-value">{{ priceValue }}</div>
-          <div class="price-tag">元/人</div>
+          <div class="price-tag">元/500g</div>
         </div>
-        <div class="details-button" @click="clickOrder">立即下单</div>
       </div>
+      <div class="cart-button" @click="clickCart">加入购物车</div>
+      <div class="details-button" @click="clickOrder">立即下单</div>
     </div>
   </div>
 </template>
 <script>
 import { titleBar } from "@/components";
 import store from "@/store";
+import { Toast } from "mint-ui";
 
 export default {
   data() {
@@ -29,6 +34,10 @@ export default {
     details() {
       return this.$t("DAIMIAN_032");
     },
+    name() {
+      return this.itemInfo.restaurantName;
+    },
+
     priceValue() {
       if (this.itemInfo.price) {
         return this.itemInfo.price.match(/\d+/g)[0];
@@ -46,6 +55,21 @@ export default {
     console.log(this.itemInfo);
   },
   methods: {
+    clickCart() {
+      let date = new Date();
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let day = date.getDate();
+      let hour = date.getHours();
+      let minute = date.getMinutes();
+      let seconds = date.getSeconds();
+      let orderTime = `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
+      store.commit("ADD_CART", { ...this.itemInfo, orderTime });
+      Toast({
+        message: "添加购物车成功",
+        iconClass: "icon icon-success",
+      });
+    },
     //下订单
     clickOrder() {
       let date = new Date();
@@ -57,6 +81,10 @@ export default {
       let seconds = date.getSeconds();
       let orderTime = `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
       store.commit("ADD_ORDER", { ...this.itemInfo, orderTime });
+      Toast({
+        message: "下订单成功",
+        iconClass: "icon icon-success",
+      });
     },
   },
 };
@@ -87,23 +115,42 @@ export default {
       .price-value {
         margin-right: 4px;
         font-size: 28px;
-        color: @MTyellow;
+        color: #389e0d;
       }
       .price-tag {
         font-size: 14px;
         color: @gray1;
       }
     }
-    .details-button {
-      height: 40px;
-      width: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 6px;
-      color: @white;
-      background: @MTyellow;
-    }
   }
+}
+.details-button {
+  bottom: 6px;
+  right: 5px;
+  position: fixed;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: @white;
+  background: #ff7875;
+}
+.cart-button {
+  bottom: 6px;
+  right: 110px;
+  position: fixed;
+  height: 40px;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: @white;
+  background: @MTyellow;
+}
+.name-content {
+  font-size: 20px;
 }
 </style>

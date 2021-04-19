@@ -69,7 +69,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .mint-tabbar > .mint-tab-item.is-selected {
-  color: @gold6;
+  color: #389e0d;
   background-color: @white;
 }
 .mint-tabbar {

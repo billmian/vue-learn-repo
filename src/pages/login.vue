@@ -2,21 +2,28 @@
   <div>
     <div class="icon-container">
       <language></language>
-      <img src="../assets/uestc.jpg" class="uestc-icon" />
+      <img src="../assets/农产品图片.jpg" class="food-icon" />
     </div>
     <div class="login-title">
       <span>{{ $t("DAIMIAN_003") }}</span>
     </div>
     <div class="input-container">
-      <mt-field :placeholder="studentIdPlaceholder" v-model="studentId"></mt-field>
-      <mt-field :placeholder="passwordPlaceholder" v-model="password"></mt-field>
+      <mt-field
+        :placeholder="studentIdPlaceholder"
+        v-model="studentId"
+      ></mt-field>
+      <mt-field
+        :placeholder="passwordPlaceholder"
+        v-model="password"
+      ></mt-field>
     </div>
     <div class="button-container">
       <mt-button
         type="default"
         class="login-button"
         @click.native="clickLogin"
-      >{{ $t("DAIMIAN_006") }}</mt-button>
+        >{{ $t("DAIMIAN_006") }}</mt-button
+      >
     </div>
   </div>
 </template>
@@ -102,7 +109,8 @@ export default {
   width: 100%;
   height: 200px;
   justify-content: center;
-  .uestc-icon {
+  .food-icon {
+    border-radius: 50%;
     width: 100px;
     height: 100px;
   }
@@ -132,7 +140,8 @@ export default {
   .login-button {
     width: 100%;
     margin-top: 10px;
-    background: white;
+    color: white;
+    background: #389e0d;
     border-radius: 4px;
     border: 0.5px solid #d9d9d9;
     &:after {

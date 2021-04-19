@@ -69,12 +69,12 @@ export default {
   height: 100vh;
   width: 100vw;
   .search-container {
-    height: 50px;
+    height: 70px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: @MTyellow2;
+    background-color: #389e0d;
     padding: 0 10px;
     box-sizing: border-box;
     .search-input-container {
@@ -99,6 +99,7 @@ export default {
       }
     }
     .search-cancel {
+      color:white;
       height: 30px;
       padding-left: 10px;
       line-height: 30px;

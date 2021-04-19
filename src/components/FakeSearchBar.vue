@@ -4,7 +4,7 @@
       <div class="fake-title-bar-container">
         <div class="fake-search-container" @click="clickSearch">
           <my-icon imgClassName="icon-sousuo" size="18"></my-icon>
-          <div class="search-food">搜索美食</div>
+          <div class="search-food">搜索农场品</div>
         </div>
       </div>
     </div>
@@ -34,19 +34,22 @@ export default {
 </script>
 <style lang="less" scoped>
 .fake-title-bar {
-  height: 50px;
+  display: flex;
+  align-items: center;
+  height: 70px;
   width: 100%;
   position: fixed;
   top: 0px;
   left: 0px;
   padding: 0 15px;
   box-sizing: border-box;
-  background-color: @MTyellow2;
+  background-color: #389e0d;
   .fake-title-bar-container {
     height: 30px;
     position: relative;
     margin: 10px 0;
     display: flex;
+    flex-grow: 1;
     justify-content: center;
     .fake-search-container {
       height: 30px;
@@ -110,7 +113,7 @@ export default {
   }
 }
 .fake-title-bar-placeholder {
-  height: 50px;
+  height: 70px;
   width: 100%;
 }
 </style>

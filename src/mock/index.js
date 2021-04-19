@@ -46,12 +46,14 @@ function getFood(options) {
       }
     }
     const enablePack = Random.boolean();
+    const num = Random.natural(0, 9);
+
     obj = {
       id: i,
-      picture: PictureList[Random.natural(0, 9)],
-      restaurantName: Random.ctitle(2, 5) + "饭店",
+      picture: PictureList[num].url,
+      restaurantName: PictureList[num].name[Random.natural(0, 2)],
       position,
-      price: "¥" + Random.integer(10, 30) + "/人",
+      price: "¥" + Random.integer(10, 30) + "/500g",
       enablePack,
     };
     foodList.push(obj);
@@ -84,7 +86,7 @@ function checkUser(options) {
       name: Random.cname(),
       identity: "学生",
       phone: Mock.mock(/\d{11}/),
-      studentId: `2020${Mock.mock(/\d{6}/)}`,
+      studentId: '四川省成都市成华区',
     };
   } else {
     return { res: false };

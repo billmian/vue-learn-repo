@@ -82,9 +82,9 @@
             <div class="restaurantName">{{ item.restaurantName }}</div>
             <div class="restaurantInfo">
               <div class="price">{{ item.price }}</div>
-              <div class="position">{{ item.position }}</div>
+              <!-- <div class="position">{{ item.position }}</div> -->
               <div class="enablePack">
-                {{ item.enablePack ? "支持打包" : "只能堂食" }}
+                {{ item.enablePack ? "支持零售" : "支持批发" }}
               </div>
             </div>
           </div>
@@ -119,10 +119,10 @@ export default {
     campus() {
       return [
         this.$t("DAIMIAN_023"),
-        //清水河
         this.$t("DAIMIAN_014"),
-        //沙河
         this.$t("DAIMIAN_015"),
+        this.$t("DAIMIAN_036"),
+        this.$t("DAIMIAN_037"),
       ];
     },
     canteen() {
@@ -312,7 +312,7 @@ export default {
     border-bottom: 1px solid #d8d8d8;
     &.fixed {
       position: fixed;
-      top: 40px;
+      top: 60px;
     }
     .select-campus {
       color: #666;
@@ -346,12 +346,12 @@ export default {
   .select-popup {
     position: fixed;
     width: 100%;
-    top: 103px;
+    top: 113px;
     height: calc(100vh - 93px);
     background-color: @MaskColor;
     z-index: 99;
     &.towardsTop {
-      top: 93px;
+      top: 103px;
     }
     .select-popup-block {
       width: 100%;
@@ -395,6 +395,7 @@ export default {
           display: flex;
           flex-direction: column;
           margin-left: 8px;
+          margin-top: 4px;
           .restaurantName {
             color: #333333;
             font-size: 17px;
@@ -406,7 +407,7 @@ export default {
             font-size: 12px;
             line-height: 16px;
             .enablePack {
-              margin-top: 5px;
+              margin-top: 22px;
               color: rgb(108, 186, 178);
             }
           }

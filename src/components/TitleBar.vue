@@ -40,7 +40,7 @@ export default {
 .mint-header {
   height: 50px;
   font-size: 16px;
-  background-color: @MTyellow2;
+  background-color: #389e0d;
   color: @black;
 }
 </style>

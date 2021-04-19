@@ -16,7 +16,7 @@
           <div class="order-tag">
             <div class="order-time">{{ `下单时间：${item.orderTime}` }}</div>
             <div class="order-price">{{ `价格：${item.price}` }}</div>
-            <div class="order-position">{{ `位置：${item.position}` }}</div>
+            <div class="order-position">{{ `收货信息：默认地址` }}</div>
           </div>
         </div>
       </div>

@@ -14,10 +14,10 @@
         <div class="key">{{ $t("DAIMIAN_020") }}：</div>
         <div class="value">{{ studentId }}</div>
       </div>
-      <div class="item-block">
+      <!-- <div class="item-block">
         <div class="key">{{ $t("DAIMIAN_021") }}：</div>
         <div class="value">{{ identity }}</div>
-      </div>
+      </div> -->
       <div class="item-block">
         <div class="key">{{ $t("DAIMIAN_035") }}：</div>
         <div class="value withIcon">

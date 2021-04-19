@@ -2,20 +2,21 @@
   <div class="starred-page">
     <title-bar :showBack="true" :title="starredTitle"></title-bar>
     <div class="starred-container">
-      <div class="starred-block">
-        <div class="block-left">
-          <img
-            src="http://p0.meituan.net/200.0/deal/8bdbad981a2beb71096bb0bec7ac5bd0103535.jpg@69_0_419_419a%7C267h_267w_2e_90Q"
-            width="80px"
-            height="80px"
-          />
+      <div
+        v-for="(item, index) in cartList"
+        :key="index"
+        class="order-item-container"
+        :class="index === 0 ? 'first-item' : ''"
+      >
+        <div class="order-picture">
+          <img :src="item.picture" class="picture" />
         </div>
-        <div class="block-right">
-          <div class="restaurant-name">玩好餐厅</div>
-          <div class="restaurant-info">
-            <div class="price">¥12/人</div>
-            <div class="position">沙河校区桂园餐厅</div>
-            <div class="enablePack">可以打包</div>
+        <div class="order-content">
+          <div class="order-title">{{ item.restaurantName }}</div>
+          <div class="order-tag">
+            <div class="order-time">{{ `下单时间：${item.orderTime}` }}</div>
+            <div class="order-price">{{ `价格：${item.price}` }}</div>
+            <div class="order-position">{{ "收货信息：默认地址" }}</div>
           </div>
         </div>
       </div>
@@ -25,7 +26,7 @@
 <script>
 import { titleBar } from "@/components";
 import http from "@/http";
-
+import store from "@/store";
 export default {
   data() {
     return {};
@@ -34,6 +35,9 @@ export default {
   computed: {
     starredTitle() {
       return this.$t("DAIMIAN_031");
+    },
+    cartList() {
+      return store.state.cart || [];
     },
   },
   components: {
