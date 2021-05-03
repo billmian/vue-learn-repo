@@ -79,7 +79,7 @@
             </div>
           </div>
           <div class="item-right">
-            <div class="restaurantName">{{ item.restaurant_name }}</div>
+            <div class="restaurantName">{{ item.product_name }}</div>
             <div class="restaurantInfo">
               <div class="price">{{ item.price }}元/500g</div>
               <!-- <div class="position">{{ item.position }}</div> -->

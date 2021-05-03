@@ -4,12 +4,29 @@
       <div class="search-input-container">
         <myIcon imgClassName="icon-sousuo" size="18"></myIcon>
         <div class="dividing-line"></div>
-        <input class="search-input" :placeholder="searchPlaceholder" v-model="inputData" v-focus />
+        <input
+          class="search-input"
+          :placeholder="searchPlaceholder"
+          v-model="inputData"
+          v-focus
+          @input="onChange"
+        />
         <div></div>
       </div>
-      <div class="search-cancel" @click="clickCancel">{{$t('DAIMIAN_017')}}</div>
+      <div class="search-cancel" @click="clickCancel">
+        {{ $t("DAIMIAN_017") }}
+      </div>
     </div>
-    <div class="search-result" v-for="item in result" :key="item.id"></div>
+    <div
+      class="search-result"
+      v-for="(item, index) in searchResult"
+      :key="index"
+    >
+      <div class="search-item" @click="clickSearchItem(item)">
+        <myIcon imgClassName="icon-sousuo" size="18"></myIcon>
+        <div class="search-text">{{ item.name }}</div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -18,31 +35,28 @@ import http from "@/http";
 
 function debounce(fn, delay) {
   let timeId = null;
-  return () => {
+  return async (params, result) => {
     clearTimeout(timeId);
-    timeId = setTimeout(() => {
-      fn();
+    timeId = setTimeout(async () => {
+      result = await fn(params);
       timeId = null;
     }, delay);
   };
 }
 
-function getSearchResult(value) {
-  http
-    .post("/mock/search", {
-      value,
-    })
-    .then((res) => {
-      console.error("这里输出返回的结果：", res);
-    });
+async function getSearchResult(value) {
+  const result = await http.post("http://localhost:3000/Search/cgi/search", {
+    params: value,
+  });
+  return result;
 }
-const deGetResult = debounce(getSearchResult);
+// const deGetResult = debounce(getSearchResult);
 
 export default {
   data() {
     return {
       inputData: "",
-      result: [],
+      searchResult: [],
     };
   },
   components: {
@@ -57,9 +71,24 @@ export default {
     },
   },
   methods: {
+    clickSearchItem(item) {
+      console.log("这里输出item:", item);
+      this.$router.push({
+        name: "details",
+        params: {
+          pid: item.pid,
+        },
+      });
+    },
     clickCancel() {
       this.inputData = "";
       this.$router.back(-1);
+    },
+    async onChange() {
+      const {
+        data: { data },
+      } = await getSearchResult(this.inputData);
+      this.searchResult = data;
     },
   },
 };
@@ -99,13 +128,24 @@ export default {
       }
     }
     .search-cancel {
-      color:white;
+      color: white;
       height: 30px;
       padding-left: 10px;
       line-height: 30px;
       box-sizing: border-box;
       text-align: center;
       font-size: 14px;
+    }
+  }
+}
+.search-result {
+  margin-top: 6px;
+  .search-item {
+    display: flex;
+    font-size: 14px;
+    padding: 4px 2px;
+    .search-text {
+      margin-left: 2px;
     }
   }
 }
