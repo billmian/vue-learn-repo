@@ -12,7 +12,7 @@
       </div>
       <div class="item-block">
         <div class="key">{{ $t("DAIMIAN_020") }}：</div>
-        <div class="value">{{ studentId }}</div>
+        <div class="value">{{ balance }}</div>
       </div>
       <!-- <div class="item-block">
         <div class="key">{{ $t("DAIMIAN_021") }}：</div>
@@ -42,19 +42,30 @@
 //姓名 电话  学号 身份
 import { titleBar, myIcon } from "@/components";
 import store from "@/store";
+import http from "@/http";
 import { getLocale, LANGUAGENAME } from "@/languages";
 
-const EMPTY_CHAR = "--";
 export default {
   data() {
     return {
-      name: store.state.name || EMPTY_CHAR,
-      phone: store.state.phone || EMPTY_CHAR,
-      studentId: store.state.studentId || EMPTY_CHAR,
-      identity: store.state.identity || EMPTY_CHAR,
+      name: "",
+      phone: "",
+      balance: "",
+      identity: "",
     };
   },
-  created() {},
+  created() {
+    http
+      .post("http://localhost:3000/User/cgi/getUserInfo", {
+        uid: store.state.uid,
+      })
+      .then((res) => {
+        this.name = res.data.data.user_name;
+        this.phone = res.data.data.user_phone;
+        this.balance = res.data.data.user_balance;
+        this.identity = res.data.data.user_type;
+      });
+  },
   mounted() {},
   components: {
     titleBar,
@@ -80,8 +91,7 @@ export default {
       this.$router.push({
         path: "/login",
       });
-      localStorage.removeItem("orderInfo");
-      localStorage.removeItem("userMsg");
+      store.commit("SELECTED_PAGE", "food");
     },
   },
 };

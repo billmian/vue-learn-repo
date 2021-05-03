@@ -7,7 +7,7 @@ import VueCookies from "vue-cookies";
 
 import "mint-ui/lib/style.css";
 import "./style.css";
-import "./mock";
+// import "./mock";
 
 import {
   login,

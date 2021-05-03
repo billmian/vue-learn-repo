@@ -14,7 +14,9 @@
         <div class="order-content">
           <div class="order-title">{{ item.restaurantName }}</div>
           <div class="order-tag">
-            <div class="order-time">{{ `下单时间：${item.orderTime}` }}</div>
+            <div class="order-time">
+              {{ `下单时间：${formatTimeStamp(item.order_time)}` }}
+            </div>
             <div class="order-price">{{ `价格：${item.price}` }}</div>
             <div class="order-position">{{ `收货信息：默认地址` }}</div>
           </div>
@@ -26,21 +28,37 @@
 <script>
 import { titleBar } from "@/components";
 import store from "@/store";
+import http from "@/http";
+import { formatTime } from "@/libs";
 
 export default {
   data() {
-    return {};
+    return {
+      orderList: [],
+    };
   },
   computed: {
     orderTitle() {
       return this.$t("DAIMIAN_033");
     },
-    orderList() {
-      return store.state.order || [];
-    },
+  },
+  created() {
+    console.log("这里输出uid:", store.state);
+    http
+      .post("http://localhost:3000/Order/cgi/getOrderList", {
+        uid: store.state.uid,
+      })
+      .then((res) => {
+        console.log("这里输出订单List:", res.data);
+        this.orderList = res.data;
+      });
   },
   components: { titleBar },
-  methods: {},
+  methods: {
+    formatTimeStamp(timeStamp) {
+      return formatTime(Number(timeStamp));
+    },
+  },
 };
 </script>
 <style lang="less">

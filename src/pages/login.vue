@@ -73,16 +73,14 @@ export default {
         });
       } else {
         http
-          .get("/mock/studentId", {
-            params: { studentId: this.studentId, password: this.password },
+          .post("http://localhost:3000/User/cgi/login", {
+            params: { account: this.studentId, password: this.password },
           })
           .then((res) => {
             //登录成功
-            if (res.data.res === true) {
+            if (res.data.code === 200) {
               //设置cookie，进行登录检测。后端检测token，如果不对则重定向到登录界面
-              let { name, photo, token } = res.data;
-              store.commit("CREATE_USERINFO", res.data);
-              this.$cookies.set("token", token, "24h");
+              store.commit("CREATE_USERINFO", res.data.msg);
               this.$router.push({
                 path: "/home",
               });

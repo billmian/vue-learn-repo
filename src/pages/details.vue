@@ -7,7 +7,7 @@
       </div>
       <div class="details-price-button">
         <div class="details-name">
-          <div class="name-content">{{ name }}</div>
+          <div class="name-content">{{ productName }}</div>
         </div>
         <div class="details-price">
           <div class="price-value">{{ priceValue }}</div>
@@ -16,45 +16,70 @@
       </div>
       <div class="cart-button" @click="clickCart">加入购物车</div>
       <div class="details-button" @click="clickOrder">立即下单</div>
+      <orderPopup
+        :popupVisible="popupVisible"
+        :itemInfo="getItemInfo"
+        :changePopupVisible="changePopupVisible"
+      ></orderPopup>
     </div>
   </div>
 </template>
 <script>
-import { titleBar } from "@/components";
+import { titleBar, orderPopup } from "@/components";
 import store from "@/store";
 import { Toast } from "mint-ui";
+import http from "@/http";
 
 export default {
   data() {
     return {
-      itemInfo: undefined,
+      popupVisible: false,
+      itemInfo: {
+        picture: "",
+        priceValue: null,
+      },
     };
   },
   computed: {
+    getItemInfo() {
+      console.log("this.itemInfo", this.itemInfo);
+      return this.itemInfo;
+    },
     details() {
       return this.$t("DAIMIAN_032");
     },
-    name() {
-      return this.itemInfo.restaurantName;
+    productName() {
+      return this.itemInfo.product_name;
     },
 
     priceValue() {
       if (this.itemInfo.price) {
-        return this.itemInfo.price.match(/\d+/g)[0];
-      } else {
         return this.itemInfo.price;
+      } else {
+        return null;
       }
     },
   },
   components: {
     titleBar,
+    orderPopup,
   },
   created() {
     //这里从路由中取出参数，如果有后端支持的话，应该是根据 id 发送请求的
-    this.itemInfo = this.$route.params.item;
-    console.log(this.itemInfo);
+    const foodPid = this.$route.params.pid;
+    http
+      .post("http://localhost:3000/Food/cgi/getFoodInfo", {
+        pid: foodPid,
+      })
+      .then((result) => {
+        this.itemInfo = result.data.data;
+        console.log("这里输出result:", this.itemInfo);
+      });
   },
   methods: {
+    changePopupVisible(value) {
+      this.popupVisible = value;
+    },
     clickCart() {
       let date = new Date();
       let year = date.getFullYear();
@@ -72,19 +97,8 @@ export default {
     },
     //下订单
     clickOrder() {
-      let date = new Date();
-      let year = date.getFullYear();
-      let month = date.getMonth();
-      let day = date.getDate();
-      let hour = date.getHours();
-      let minute = date.getMinutes();
-      let seconds = date.getSeconds();
-      let orderTime = `${year}-${month}-${day} ${hour}:${minute}:${seconds}`;
-      store.commit("ADD_ORDER", { ...this.itemInfo, orderTime });
-      Toast({
-        message: "下订单成功",
-        iconClass: "icon icon-success",
-      });
+      this.popupVisible = true;
+      //store.commit("ADD_ORDER", { ...this.itemInfo, orderTime });
     },
   },
 };
@@ -96,7 +110,7 @@ export default {
   overflow: hidden;
   .picture {
     width: 100%;
-    height: 120%;
+    height: 100%;
   }
 }
 .details-content {

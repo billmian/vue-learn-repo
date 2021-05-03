@@ -1,3 +1,5 @@
+import http from "@/http";
+
 //添加订单
 export default function(store, paramsObj) {
   if (Object.prototype.toString.call(paramsObj) !== "[object Object]") {

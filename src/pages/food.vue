@@ -69,7 +69,7 @@
       <div
         class="food-blocks"
         v-for="item in foodList"
-        :key="item.id"
+        :key="item.pid"
         @click="goToFoodPage(item)"
       >
         <div class="food-item">
@@ -79,9 +79,9 @@
             </div>
           </div>
           <div class="item-right">
-            <div class="restaurantName">{{ item.restaurantName }}</div>
+            <div class="restaurantName">{{ item.restaurant_name }}</div>
             <div class="restaurantInfo">
-              <div class="price">{{ item.price }}</div>
+              <div class="price">{{ item.price }}元/500g</div>
               <!-- <div class="position">{{ item.position }}</div> -->
               <div class="enablePack">
                 {{ item.enablePack ? "支持零售" : "支持批发" }}
@@ -189,7 +189,7 @@ export default {
       this.$router.push({
         name: "details",
         params: {
-          item,
+          pid: item.pid,
         },
       });
     },
@@ -252,7 +252,7 @@ export default {
       selectedCanteen = selectedCanteen || 0;
       checkReset = checkReset || false;
       http
-        .post("/mock/foods", {
+        .post("http://localhost:3000/Food/cgi/getFoodList", {
           page,
           campus: selectedCampus,
           canteen: selectedCanteen,

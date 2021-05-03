@@ -5,4 +5,15 @@ import titleBar from "./TitleBar";
 import search from "./Search";
 import fakeSearchBar from "./FakeSearchBar";
 import card from "./Card";
-export { myIcon, language, tabbar, titleBar, search, fakeSearchBar, card };
+import orderPopup from "./OrderPopup";
+
+export {
+  myIcon,
+  language,
+  tabbar,
+  titleBar,
+  search,
+  fakeSearchBar,
+  card,
+  orderPopup,
+};
